@@ -32,7 +32,7 @@ namespace HKAAIERII
 
             if (keyboardState.IsKeyDown(Keys.Left))
             {
-                Sprite.AnimationId = 1;
+                Sprite.AnimationId = 3;
                 moving = true;
                 desiredPosition.X -= 100f * deltaTime * multiplier;
             }
@@ -46,7 +46,7 @@ namespace HKAAIERII
 
             if (keyboardState.IsKeyDown(Keys.Up))
             {
-                Sprite.AnimationId = 3;
+                Sprite.AnimationId = 1;
                 moving = true;
                 desiredPosition.Y -= 100f * deltaTime * multiplier;
             }

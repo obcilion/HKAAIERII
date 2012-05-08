@@ -86,7 +86,7 @@ namespace HKAAIERII
 
 
             //load the sprite and player
-            Sprite playerSprite = new Sprite(Content.Load<Texture2D>("charsheet"), 43, 53, 1f);
+            Sprite playerSprite = new Sprite(Content.Load<Texture2D>("charsheet"), 58, 73, 1f);
 
             Player = new Player(playerSprite);
         }
