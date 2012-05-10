@@ -21,6 +21,7 @@ namespace HKAAIERII
         {
             Menu,
             Running,
+            Credits,
             End
         }
 
@@ -193,11 +194,15 @@ namespace HKAAIERII
                     menu.Iterator--;
                 }
 
-                if (Keyboard.GetState().IsKeyDown(Keys.A))
+                if (Keyboard.GetState().IsKeyDown(Keys.Enter))
                 {
                     if (menu.Iterator == 0)
                     {
                         gamestate = GameStates.Running;
+                    }
+                    else if (menu.Iterator == 1)
+                    {
+                        gamestate = GameStates.Credits;
                     }
                     else if (menu.Iterator == 2)
                     {
@@ -206,9 +211,13 @@ namespace HKAAIERII
                     menu.Iterator = 0;
                 }
             }
+            else if (gamestate == GameStates.Credits)
+            {
+
+            }
             else if (gamestate == GameStates.End)
             {
-                if (Keyboard.GetState().IsKeyDown(Keys.A))
+                if (Keyboard.GetState().IsKeyDown(Keys.Enter))
                 {
                     gamestate = GameStates.Menu;
                 }
@@ -231,6 +240,10 @@ namespace HKAAIERII
             else if (gamestate == GameStates.Menu)
             {
                 menu.DrawMenu(spriteBatch, screenWidth, arial);
+            }
+            else if (gamestate == GameStates.Credits)
+            {
+                menu.DrawCredtis(spriteBatch, screenWidth, arial);
             }
             else if (gamestate == GameStates.End)
             {

@@ -65,6 +65,13 @@ namespace HKAAIERII
             }
         }
 
+        public void DrawCredtis(SpriteBatch batch, int screenWidth, SpriteFont arial)
+        {
+            batch.DrawString(arial, InfoText, new Vector2(screenWidth / 2 - arial.MeasureString(InfoText).X / 2, 300), Color.White);
+            string prompt = "BLABLABLA";
+            batch.DrawString(arial, prompt, new Vector2(screenWidth / 2 - arial.MeasureString(prompt).X / 2, 400), Color.White);
+        }
+
         public void DrawEndScreen(SpriteBatch batch, int screenWidth, SpriteFont arial)
         {
             batch.DrawString(arial, InfoText, new Vector2(screenWidth / 2 - arial.MeasureString(InfoText).X / 2, 300), Color.White);
