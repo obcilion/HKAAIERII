@@ -41,10 +41,13 @@ namespace HKAAIERII
         Player Player;
 
         //transition between levels
-        Rectangle IslandOneBridge = new Rectangle(1225, 340, 220, 50);
+        Rectangle IslandOneBridge = new Rectangle(1225, 340, 220, 100);
         Rectangle IslandOneSouth = new Rectangle(50, 675, 650, 50);
-        Rectangle IslandTwoBridge = new Rectangle(10, 285, 30, 50);
+        Rectangle IslandTwoBridge = new Rectangle(10, 285, 30, 100);
         Rectangle IslandThreeNorth = new Rectangle(50, 10, 640, 60);
+        Rectangle IslandOneHouse = new Rectangle(120, 488, 55, 10);
+        Rectangle IslandTwoHouse = new Rectangle(652, 374, 55, 10);
+        Rectangle IslandThreeHouse = new Rectangle(829, 280, 55, 10);
 
         public Game1()
         {
@@ -133,11 +136,29 @@ namespace HKAAIERII
                         Player.Sprite.AnimationId = ActiveLevel.StartAnimation;
                     }
                 }
+                if (ActiveLevel == Island1)
+                {
+                    if (IslandOneHouse.Contains((int)Player.Position.X, (int)Player.Position.Y))
+                    {
+                        ActiveLevel = Island3;
+                        Player.Position = ActiveLevel.StartPosition;
+                        Player.Sprite.AnimationId = ActiveLevel.StartAnimation;
+                    }
+                }
                 if (ActiveLevel == Island2)
                 {
                     if (IslandTwoBridge.Contains((int)Player.Position.X, (int)Player.Position.Y))
                     {
                         ActiveLevel = Island1;
+                        Player.Position = ActiveLevel.StartPosition;
+                        Player.Sprite.AnimationId = ActiveLevel.StartAnimation;
+                    }
+                }
+                if (ActiveLevel == Island2)
+                {
+                    if (IslandTwoHouse.Contains((int)Player.Position.X, (int)Player.Position.Y))
+                    {
+                        ActiveLevel = Island3;
                         Player.Position = ActiveLevel.StartPosition;
                         Player.Sprite.AnimationId = ActiveLevel.StartAnimation;
                     }
@@ -148,6 +169,15 @@ namespace HKAAIERII
                     {
                         ActiveLevel = Island1;
                         Player.Position = new Vector2(300, 600);
+                        Player.Sprite.AnimationId = ActiveLevel.StartAnimation;
+                    }
+                }
+                if (ActiveLevel == Island3)
+                {
+                    if (IslandThreeHouse.Contains((int)Player.Position.X, (int)Player.Position.Y))
+                    {
+                        ActiveLevel = Island1;
+                        Player.Position = ActiveLevel.StartPosition;
                         Player.Sprite.AnimationId = ActiveLevel.StartAnimation;
                     }
                 }
