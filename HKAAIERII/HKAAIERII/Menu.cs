@@ -10,73 +10,102 @@ namespace HKAAIERII
     class Menu
     {
         private List<string> MenuItems;
-        private int iterator;
-        public string InfoText { get; set; }
+        private List<string> CreditsItems = new List<string>();
         public string Title { get; set; }
+        Texture2D MenuBackground;
 
-        public int Iterator
+        // Sets the menu options
+        public Menu(Texture2D menuBackground)
         {
-            get
-            {
-                return iterator;
-            }
-            set
-            {
-                iterator = value;
-                if (iterator > MenuItems.Count - 1) iterator = MenuItems.Count - 1;
-                if (iterator < 0) iterator = 0;
-            }
-        }
-
-        public Menu()
-        {
+            MenuBackground = menuBackground;
             Title = "Hello Kitty Action Adventure Island Extreme Reloaded II";
             MenuItems = new List<string>();
             MenuItems.Add("Start Game");
             MenuItems.Add("Credits");
             MenuItems.Add("Exit Game");
-            Iterator = 0;
-            InfoText = string.Empty;
+
+            CreditsItems.Add("Tarje Hellebust jr.");
+            CreditsItems.Add("Hanne Lohne Try");
+            CreditsItems.Add("Kenneth Hagaas");
+            CreditsItems.Add("Raymond Gulbrandsen");
+
+            Game1.Selected = 0;
         }
 
-        public int GetNumberOfOptions()
+        public void Update()
         {
-            return MenuItems.Count;
-        }
-
-        public string GetItem(int index)
-        {
-            return MenuItems[index];
-        }
-
-        public void DrawMenu(SpriteBatch batch, int screenWidth, SpriteFont arial)
-        {
-            batch.DrawString(arial, Title, new Vector2(screenWidth / 2 - arial.MeasureString(Title).X / 2, 20), Color.White);
-            int yPos = 100;
-            for (int i = 0; i < GetNumberOfOptions(); i++)
+            if (InputHandler.Instance.IsDownPressed())
             {
-                Color colour = Color.White;
-                if (i == Iterator)
+                Game1.Selected++;
+                if (Game1.Selected > MenuItems.Count - 1) Game1.Selected = 0;
+            }
+            if (InputHandler.Instance.IsUpPressed())
+            {
+                Game1.Selected--;
+                if (Game1.Selected < 0) Game1.Selected = MenuItems.Count - 1;
+            }
+
+            if (InputHandler.Instance.IsActionPressed())
+            {
+                Game1.HasSelected = true;
+            }
+
+            // Resets game and menu, switches gamestate or exits game
+            if (Game1.HasSelected)
+            {
+                switch (Game1.Selected)
                 {
-                    colour = Color.Gray;
+                    case 0:
+                        Game1.ResetGame();
+                        Game1.ResetMenu();
+                        Game1.gamestate = Game1.GameStates.Running;
+                        break;
+                    case 1:
+                        Game1.ResetMenu();
+                        Game1.gamestate = Game1.GameStates.Credits;
+                        break;
+                    case 2:
+                        Game1.ExitGame = true;
+                        break;
                 }
-                batch.DrawString(arial, GetItem(i), new Vector2(screenWidth / 2 - arial.MeasureString(GetItem(i)).X / 2, yPos), colour);
-                yPos += 50;
+            }
+        }
+        public void DrawMenu(SpriteBatch batch, int screenWidth, SpriteFont MenuTitleFont, SpriteFont MenuFont)
+        {
+            batch.Draw(MenuBackground, Vector2.Zero, Color.White);
+            batch.DrawString(MenuTitleFont, Title, new Vector2(screenWidth / 2 - MenuTitleFont.MeasureString(Title).X / 2, 50), Color.Black);
+            int yPos = 250;
+            for (int i = 0; i < MenuItems.Count; i++)
+            {
+                Color colour = Color.Black;
+                if (i == Game1.Selected)
+                {
+                    colour = Color.White;
+                }
+                batch.DrawString(MenuFont, MenuItems[i], new Vector2(screenWidth / 2 - MenuFont.MeasureString(MenuItems[i]).X / 2, yPos), colour);
+                yPos += MenuFont.LineSpacing;
             }
         }
 
-        public void DrawCredtis(SpriteBatch batch, int screenWidth, SpriteFont arial)
+        public void DrawCredtis(SpriteBatch batch, int screenWidth, SpriteFont MenuTitleFont, SpriteFont MenuFont)
         {
-            batch.DrawString(arial, InfoText, new Vector2(screenWidth / 2 - arial.MeasureString(InfoText).X / 2, 300), Color.White);
-            string prompt = "BLABLABLA";
-            batch.DrawString(arial, prompt, new Vector2(screenWidth / 2 - arial.MeasureString(prompt).X / 2, 400), Color.White);
+            batch.Draw(MenuBackground, Vector2.Zero, Color.White);
+
+            batch.DrawString(MenuTitleFont, "MADE BY:", new Vector2(screenWidth / 2 - MenuTitleFont.MeasureString("MADE BY:").X / 2, 50), Color.Black);
+
+            int yPos = 250;
+            for (int i = 0; i < CreditsItems.Count; i++)
+            {
+                batch.DrawString(MenuFont, CreditsItems[i], new Vector2(screenWidth / 2 - MenuFont.MeasureString(CreditsItems[i]).X / 2, yPos), Color.Black);
+                yPos += MenuFont.LineSpacing;
+            }
         }
 
         public void DrawEndScreen(SpriteBatch batch, int screenWidth, SpriteFont arial)
         {
-            batch.DrawString(arial, InfoText, new Vector2(screenWidth / 2 - arial.MeasureString(InfoText).X / 2, 300), Color.White);
-            string prompt = "Press X to Continue";
-            batch.DrawString(arial, prompt, new Vector2(screenWidth / 2 - arial.MeasureString(prompt).X / 2, 400), Color.White);
+            batch.Draw(MenuBackground, Vector2.Zero, Color.White);
+
+            batch.DrawString(arial, "Congratulations, you found Mimmy!", new Vector2(screenWidth / 2 - arial.MeasureString("Congratulations, you found Mimmy!").X / 2, 300), Color.Black);
         }
     }
 }

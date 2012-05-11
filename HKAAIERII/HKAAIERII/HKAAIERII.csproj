@@ -72,9 +72,12 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InputHandler.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Collision.cs" />
     <Compile Include="Level.cs" />
+    <Compile Include="Npc.cs" />
+    <Compile Include="PauseMenu.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
