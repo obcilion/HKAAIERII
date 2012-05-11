@@ -16,7 +16,7 @@ namespace HKAAIERII
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        //game state management
+        // Game state management
         public enum GameStates
         {
             Menu,
@@ -27,7 +27,7 @@ namespace HKAAIERII
 
         public static GameStates gamestate;
 
-        //menu items
+        // Menu items
         Menu menu;
         PauseMenu pauseMenu;
         SpriteFont MenuFont;
@@ -56,7 +56,7 @@ namespace HKAAIERII
             Player.Sprite.AnimationId = 2;
         }
 
-        //the different levels in the game
+        // The different levels in the game
         static Level Island1;
         Level Island1House;
         Level Island2;
@@ -73,7 +73,7 @@ namespace HKAAIERII
         Npc Mimmy;
         static Npc ActiveNpc;
 
-        //transition between levels
+        // Transition between levels
         Rectangle IslandOneBridge = new Rectangle(1225, 340, 220, 100);
         Rectangle IslandOneSouth = new Rectangle(50, 675, 650, 50);
         Rectangle IslandTwoBridge = new Rectangle(10, 285, 30, 100);
@@ -104,6 +104,7 @@ namespace HKAAIERII
         {
             base.Initialize();
 
+            // Initialize the menus
             gamestate = GameStates.Menu;
             menu = new Menu(MenuBackground);
             pauseMenu = new PauseMenu(MenuBackground);
@@ -115,10 +116,10 @@ namespace HKAAIERII
 
         protected override void LoadContent()
         {
-            //create a new SpriteBatch, which can be used to draw textures.
+            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            //load sprite font
+            // Load sprite font
             MenuFont = Content.Load<SpriteFont>("MenuFont");
             MenuTitleFont = Content.Load<SpriteFont>("MenuTitleFont");
             SpriteFont DialogFont = Content.Load<SpriteFont>("DialogFont");
@@ -126,7 +127,7 @@ namespace HKAAIERII
             // Load MenuBackground
             MenuBackground = Content.Load<Texture2D>("MenuBackground");
 
-            //initialize the different levels used
+            // Initialize the different levels used
             Island1 = new Level(Content.Load<Texture2D>("bg1"), Content.Load<Texture2D>("bg1_collision"), new Vector2(1200, 370), 1);
             Island1House = new Level(Content.Load<Texture2D>("mamahouse"), Content.Load<Texture2D>("mamahouse_collision"), new Vector2(590, 500), 3);
 
@@ -139,7 +140,7 @@ namespace HKAAIERII
             ActiveLevel = Island1;
 
 
-            //load the sprite and player
+            // Load the sprite and player
             Sprite playerSprite = new Sprite(Content.Load<Texture2D>("charsheet"), 58, 73, 1f);
 
             Player = new Player(playerSprite);
@@ -153,9 +154,9 @@ namespace HKAAIERII
             Texture2D DialogBoxTexture = Content.Load<Texture2D>("blank");
 
             // Give NPCs Dialog text
-            Mama.Dialog(DialogBoxTexture, DialogFont, "I dont know where Mimmy is, cross the bridge and ask Papa", new Vector2(570, 65));
-            Papa.Dialog(DialogBoxTexture, DialogFont, "Mimmy is in the house south of Mama", new Vector2(380, 70));
-            Mimmy.Dialog(DialogBoxTexture, DialogFont, "I am your Mimmy", new Vector2(400, 110));
+            Mama.Dialog(DialogBoxTexture, DialogFont, "I dont know where Mimmy is, cross the bridge and ask Papa.", new Vector2(570, 65));
+            Papa.Dialog(DialogBoxTexture, DialogFont, "Mimmy is in the house south of Mama.", new Vector2(380, 70));
+            Mimmy.Dialog(DialogBoxTexture, DialogFont, "I am your Mimmy!", new Vector2(400, 110));
         }
 
 
@@ -196,6 +197,7 @@ namespace HKAAIERII
 
                     if (ActiveLevel == Island1)
                     {
+                        // If the player is on the bridge, go to next level
                         if (IslandOneBridge.Contains((int)Player.Position.X, (int)Player.Position.Y))
                         {
                             ActiveLevel = Island2;
