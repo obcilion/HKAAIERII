@@ -56,6 +56,14 @@ namespace HKAAIERII
             Player.Sprite.AnimationId = 2;
         }
 
+        // Sound effects used in the game
+        SoundEffect HelloKittyTheme;
+        SoundEffect HellMarch;
+
+        // Booleans to prevent background music from playing more than once
+        Boolean IsGameplayMusicPlaying;
+        Boolean IsMenuMusicPlaying;
+
         // The different levels in the game
         static Level Island1;
         Level Island1House;
@@ -127,6 +135,10 @@ namespace HKAAIERII
             // Load MenuBackground
             MenuBackground = Content.Load<Texture2D>("MenuBackground");
 
+            // Load sound effects
+            HelloKittyTheme = Content.Load<SoundEffect>("HelloKittyTheme");
+            HellMarch = Content.Load<SoundEffect>("HellMarch");
+
             // Initialize the different levels used
             Island1 = new Level(Content.Load<Texture2D>("bg1"), Content.Load<Texture2D>("bg1_collision"), new Vector2(1200, 370), 1);
             Island1House = new Level(Content.Load<Texture2D>("mamahouse"), Content.Load<Texture2D>("mamahouse_collision"), new Vector2(590, 500), 3);
@@ -138,7 +150,6 @@ namespace HKAAIERII
             Island3House = new Level(Content.Load<Texture2D>("mimmihouse"), Content.Load<Texture2D>("mimmihouse_collision"), new Vector2(575, 530), 3);
 
             ActiveLevel = Island1;
-
 
             // Load the sprite and player
             Sprite playerSprite = new Sprite(Content.Load<Texture2D>("charsheet"), 58, 73, 1f);
@@ -177,8 +188,22 @@ namespace HKAAIERII
 
             InputHandler.Instance.Update();
 
+            SoundEffectInstance HellMarchInstance = HellMarch.CreateInstance();
+            SoundEffectInstance HelloKittyThemeInstance = HelloKittyTheme.CreateInstance();
+
             if (gamestate == GameStates.Running)
             {
+                HelloKittyThemeInstance.Stop();
+                IsMenuMusicPlaying = false;
+
+                // Play gameplay music
+                if (!IsGameplayMusicPlaying)
+                {
+                    HellMarchInstance.IsLooped = true;
+                    HellMarchInstance.Play();
+                    IsGameplayMusicPlaying = true;
+                }
+
                 // Pauses game if abort key is pressed, runs the pauseMenu update
                 if (InputHandler.Instance.IsAbortPressed())
                     IsPaused = true;
@@ -302,6 +327,17 @@ namespace HKAAIERII
             else if (gamestate == GameStates.Menu)
             {
                 menu.Update();
+
+                HellMarchInstance.Stop();
+                IsGameplayMusicPlaying = false;
+
+                // Play menu music
+                if (!IsMenuMusicPlaying)
+                {
+                    HelloKittyThemeInstance.IsLooped = true;
+                    HelloKittyThemeInstance.Play();
+                    IsMenuMusicPlaying = true;
+                }
             }
 
             else if (gamestate == GameStates.Credits)
