@@ -10,11 +10,13 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
+// Code: Kenneth
+
 namespace HKAAIERII
 {
     public class InputHandler
     {
-        //Statis field-/property-par for å gjøre InputHandler tilgjengelig overalt.
+        // Statisk field-/property-par for å gjøre InputHandler tilgjengelig overalt.
         static InputHandler _Instance;
         public static InputHandler Instance
         {
@@ -35,14 +37,14 @@ namespace HKAAIERII
 
         }
 
-        //Fields og Properties som kun finnes på windows:
+        // Fields og Properties som kun finnes på windows:
 #if WINDOWS
-        //State-objekter for tastatur
+        // State-objekter for tastatur
         public KeyboardState KeyboardState { get; private set; }
         public KeyboardState PreviousKeyboardState { get; private set; }
 
 
-        //tastekonfigurasjon:
+        // tastekonfigurasjon:
         public Keys LeftKey = Keys.Left;
         public Keys RightKey = Keys.Right;
         public Keys UpKey = Keys.Up;
@@ -52,22 +54,22 @@ namespace HKAAIERII
         public Keys AbortKey = Keys.Escape;
 #endif
 
-        //Muse-apiet finne sbåde for Windows og windows phone, så dette kompileres så lenge det ikek er til XBox 360.
+        // Muse-apiet finne sbåde for Windows og windows phone, så dette kompileres så lenge det ikek er til XBox 360.
 #if !XBOX
         public MouseState MouseState { get; private set; }
         public MouseState PreviousMouseState { get; private set; }
 #endif
 
-        //GamePad-apiet finnes til windwos og XBox, så her ekskluderer vi bare windows phone
+        // GamePad-apiet finnes til windwos og XBox, så her ekskluderer vi bare windows phone
 #if !WINDOWSPHONE
-        //State-objekter
+        // State-objekter
         public GamePadState GamePadState { get; private set; }
         public GamePadState PreviousGamePadState { get; private set; }
 
-        //Brukes for å bestemme hvilken gamepad som skal brukes.
+        // Brukes for å bestemme hvilken gamepad som skal brukes.
         public PlayerIndex PlayerIndex = PlayerIndex.One;
 
-        //Tastekonfigurasjon for gamepad:
+        // Tastekonfigurasjon for gamepad:
         public Buttons LeftButton = Buttons.DPadLeft;
         public Buttons RightButton = Buttons.DPadRight;
         public Buttons UpButton = Buttons.DPadUp;
@@ -98,7 +100,7 @@ namespace HKAAIERII
 #endif
         }
 
-        //Tastaturspesifikk kode:
+        // Tastaturspesifikk kode:
         #region Keyboard
 
 #if WINDOWS
@@ -145,7 +147,7 @@ namespace HKAAIERII
 
         #endregion
 
-        //Gamepadspesifikk kode:
+        // Gamepadspesifikk kode:
         #region GamePad
 
 #if !WINDOWSPHONE
@@ -191,9 +193,9 @@ namespace HKAAIERII
 #endif
         #endregion
 
-        //Metoder som samler APIet for gamepad og tastatur. 
-        //Bruker koden lengre opp sammen med fieldene for tastekonfigurasjoner for å gjøre det enkelt å kunne programmere til både tastatur 
-        //og gamepad uten å endre koden spesifikt for platform.
+        // Metoder som samler APIet for gamepad og tastatur. 
+        // Bruker koden lengre opp sammen med fieldene for tastekonfigurasjoner for å gjøre det enkelt å kunne programmere til både tastatur 
+        // og gamepad uten å endre koden spesifikt for platform.
         #region Common Methods
 
         #region Down-Methods

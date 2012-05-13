@@ -5,6 +5,8 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+// Code: Hanne
+
 namespace HKAAIERII
 {
     class Menu

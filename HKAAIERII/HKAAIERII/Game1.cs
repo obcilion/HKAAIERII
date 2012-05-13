@@ -1,3 +1,11 @@
+// Innlevering 2 - XNA spillprogrammering - PG2200 - våren 2012
+// Kenneth Hagaas, Raymond Gulbrandsen, Hanne Lohne Try og Tarje Hellebust Jr. presenterer:
+// Hello Kitty Action Adventure Island Extreme Reloaded II
+
+// Kommentering av hvem som har skrevet kode er basert på hvem som hovedsaklig har jobbet med ulike komponenter,
+// da gruppen har jobbet veldig om hverandre på enkelte deler. Egne kommentarer i klassene på hvem som har jobbet mest
+// med respektive klasse. Ellers omtrentlig kommentert nedover i denne klassen.
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -327,9 +335,7 @@ namespace HKAAIERII
             else if (gamestate == GameStates.Menu)
             {
                 menu.Update();
-
                 HellMarchInstance.Stop();
-                IsGameplayMusicPlaying = false;
 
                 // Play menu music
                 if (!IsMenuMusicPlaying)
@@ -351,6 +357,7 @@ namespace HKAAIERII
             {
                 if (InputHandler.Instance.IsActionPressed())
                 {
+                    HellMarchInstance.Stop();
                     gamestate = GameStates.Menu;
                 }
             }

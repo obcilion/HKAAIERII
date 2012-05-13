@@ -5,6 +5,8 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
+// Code: Kenneth
+
 namespace HKAAIERII
 {
     class PauseMenu
